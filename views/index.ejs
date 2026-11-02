@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel | Sistema de Cadastros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/"><span class="brand-mark">c</span><span>cadastro<span class="brand-light">.simples</span></span></a>
+      <span class="topbar-note">Painel de gerenciamento</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <span class="eyebrow">VISÃO GERAL</span>
+        <h1>Organização que facilita o dia.</h1>
+        <p>Gerencie seus cadastros em um só lugar, sem complicação.</p>
+      </div>
+      <div class="welcome-decoration" aria-hidden="true"><span></span><span></span><span></span></div>
+    </section>
+
+    <section class="section-heading">
+      <div><span class="eyebrow">ÁREAS DO SISTEMA</span><h2>O que você deseja acessar?</h2></div>
+      <span class="subtle">Escolha uma das opções abaixo</span>
+    </section>
+
+    <section class="module-grid">
+      <% const modulos = [
+        {slug:'clientes', nome:'Clientes', texto:'Consulte e mantenha os dados dos clientes.', letra:'C', cor:'sage'},
+        {slug:'fornecedores', nome:'Fornecedores', texto:'Acompanhe os contatos dos seus parceiros.', letra:'F', cor:'sand'},
+        {slug:'produtos', nome:'Produtos', texto:'Organize preços e quantidades em estoque.', letra:'P', cor:'blue'}
+      ]; %>
+      <% modulos.forEach(modulo => { %>
+        <a class="module-card" href="/<%= modulo.slug %>">
+          <div class="module-top"><span class="module-icon <%= modulo.cor %>"><%= modulo.letra %></span><span class="count"><%= totais[modulo.slug] %> registros</span></div>
+          <h3><%= modulo.nome %></h3>
+          <p><%= modulo.texto %></p>
+          <span class="card-link">Acessar área <span aria-hidden="true">→</span></span>
+        </a>
+      <% }) %>
+    </section>
+
+    <section class="team-panel">
+      <div class="team-icon">✳</div>
+      <div><span class="eyebrow">DESENVOLVIDO POR</span><p><strong><%= nomes[0] %></strong><span class="team-and"> e </span><strong><%= nomes[1] %></strong></p></div>
+      <span class="team-class">Projeto Node.js</span>
+    </section>
+  </main>
+  <footer class="footer"><span>Sistema de Cadastros</span><span>Desenvolvido com Node.js e Express</span></footer>
+</body>
+</html>

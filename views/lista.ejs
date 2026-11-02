@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= c.titulo %> | Cadastro Simples</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner">
+    <a class="brand" href="/"><span class="brand-mark">c</span><span>cadastro<span class="brand-light">.simples</span></span></a>
+    <a class="back-link" href="/">← Voltar ao painel</a>
+  </div></header>
+
+  <main class="container page-container">
+    <div class="breadcrumb"><a href="/">Início</a><span>/</span><span><%= c.titulo %></span></div>
+    <section class="page-heading">
+      <div><span class="eyebrow">GERENCIAMENTO</span><h1><%= c.titulo %></h1><p><%= c.descricao %></p></div>
+      <a class="button button-primary" href="/<%= e %>/novo"><span>＋</span> Novo cadastro</a>
+    </section>
+
+    <% if (msg) { %><div class="notice <%= tipoMsg === 'error' ? 'notice-error' : '' %>"><span>✓</span><%= msg %></div><% } %>
+
+    <section class="content-panel">
+      <div class="panel-heading"><div><h2>Registros cadastrados</h2><p>Consulte ou atualize as informações abaixo.</p></div><span class="total-pill"><%= dados.length %> <%= dados.length === 1 ? 'registro' : 'registros' %></span></div>
+      <% if (!dados.length) { %>
+        <div class="empty-state"><div class="empty-icon">＋</div><h3>Nenhum cadastro por aqui</h3><p>Quando você adicionar um novo registro, ele aparecerá nesta lista.</p><a class="button button-primary" href="/<%= e %>/novo">Fazer primeiro cadastro</a></div>
+      <% } else { %>
+        <div class="table-wrap"><table>
+          <thead><tr><th class="id-column">ID</th><% c.campos.forEach(campo => { %><th><%= campo[1] %></th><% }) %><th class="actions-column">Ações</th></tr></thead>
+          <tbody><% dados.forEach(item => { %><tr>
+            <td class="id-cell">#<%= item.id %></td>
+            <% c.campos.forEach(campo => { %><td><%= campo[0] === 'preco' ? Number(item[campo[0]]).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) : item[campo[0]] %></td><% }) %>
+            <td><div class="actions">
+              <a class="button button-small button-edit" href="/<%= e %>/editar/<%= item.id %>">Editar</a>
+              <form method="post" action="/<%= e %>/excluir/<%= item.id %>" onsubmit="return confirm('Deseja realmente excluir este registro?')"><button class="button button-small button-delete" type="submit">Excluir</button></form>
+            </div></td>
+          </tr><% }) %></tbody>
+        </table></div>
+      <% } %>
+    </section>
+    <p class="page-footnote">As informações são armazenadas nos arquivos de dados do projeto.</p>
+  </main>
+  <footer class="footer"><span>Sistema de Cadastros</span><span>Node.js · Express · EJS</span></footer>
+</body>
+</html>

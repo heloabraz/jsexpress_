@@ -1,0 +1,4 @@
+Coloque nesta pasta as capturas da conversa com a IA e, se desejar, os prints do site antes e depois.
+No README.md, substitua os espaços indicados pelas imagens usando, por exemplo:
+![Site antes](evidencias/site-antes.png)
+![Site depois](evidencias/site-depois.png)

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= item.id ? 'Editar' : 'Novo cadastro' %> | <%= c.titulo %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner">
+    <a class="brand" href="/"><span class="brand-mark">c</span><span>cadastro<span class="brand-light">.simples</span></span></a>
+    <a class="back-link" href="/<%= e %>">← Voltar para <%= c.titulo.toLowerCase() %></a>
+  </div></header>
+  <main class="container form-container">
+    <div class="breadcrumb"><a href="/">Início</a><span>/</span><a href="/<%= e %>"><%= c.titulo %></a><span>/</span><span><%= item.id ? 'Editar' : 'Novo cadastro' %></span></div>
+    <section class="form-card">
+      <div class="form-intro"><span class="eyebrow"><%= item.id ? 'ATUALIZAÇÃO DE DADOS' : 'NOVO REGISTRO' %></span><h1><%= item.id ? 'Editar cadastro' : 'Adicionar cadastro' %></h1><p><%= item.id ? 'Confira as informações e faça as alterações necessárias.' : 'Preencha os campos abaixo para adicionar um novo registro.' %></p></div>
+      <% if (erros.length) { %><div class="notice notice-error"><div><% erros.forEach(erro => { %><p><%= erro %></p><% }) %></div></div><% } %>
+      <form method="post" action="<%= acao %>" class="record-form">
+        <% c.campos.forEach(campo => { %>
+          <div class="field">
+            <label for="<%= campo[0] %>"><%= campo[1] %></label>
+            <input id="<%= campo[0] %>" name="<%= campo[0] %>" type="<%= campo[2] %>" value="<%= item[campo[0]] || '' %>" <%= campo[2] === 'number' ? 'min="0" step="any"' : '' %> required>
+          </div>
+        <% }) %>
+        <div class="form-actions"><a class="button button-secondary" href="/<%= e %>">Cancelar</a><button class="button button-primary" type="submit"><%= item.id ? 'Salvar alterações' : 'Salvar cadastro' %></button></div>
+      </form>
+    </section>
+  </main>
+  <footer class="footer"><span>Sistema de Cadastros</span><span>Node.js · Express · EJS</span></footer>
+</body>
+</html>
